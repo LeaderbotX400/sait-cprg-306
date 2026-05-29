@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ThemeSwitcher() {
   // TODO 1: Declare a boolean state variable called `isDark`
@@ -9,12 +9,23 @@ export default function ThemeSwitcher() {
 
   //         Initial value: false (light mode by default)
 
-  const [isDark, setDark] = useState<boolean>(false);
+  const [isDark, setDark] = useState<boolean>(
+    Boolean(localStorage.getItem("theme")) || false,
+  );
+
+  const [count, setCount] = useState<number>(0);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCount(count + 1);
+  }, [isDark]);
 
   function toggleTheme() {
     // TODO 2: Toggle isDark when this function is called
 
     setDark(!isDark);
+
+    localStorage.setItem("isDark", `${!isDark}`);
   }
 
   return (
@@ -38,13 +49,16 @@ export default function ThemeSwitcher() {
 
       {/* TODO 5: Wire onClick to call toggleTheme */}
 
-      <button
-        className="px-4 py-2 rounded font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-colors"
-        onClick={toggleTheme}
-      >
-        {/* TODO 6 (Bonus): Dynamic label */}
-        Toggle Theme
-      </button>
+      <div className="grid gap-3 max-w-lg text-center">
+        <button
+          className="px-4 py-2 rounded font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+          onClick={toggleTheme}
+        >
+          {/* TODO 6 (Bonus): Dynamic label */}
+          Toggle Theme
+        </button>
+        <span>{count}</span>
+      </div>
     </div>
   );
 }
