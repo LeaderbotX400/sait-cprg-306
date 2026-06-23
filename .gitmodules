@@ -1,0 +1,3 @@
+[submodule "assignments/assignment-2"]
+	path = assignments/assignment-2
+	url = git@github.com:SAIT-CPRG-306/assignment-2.git
