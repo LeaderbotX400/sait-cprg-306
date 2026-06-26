@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+"use client";
+import React from "react";
+import { useState, useEffect } from "react";
 
-export const useDebounce = (value: string, delay = 500) => {
-  const [heldVal, setDebounce] = useState(value);
+const useDebounce = (value: string, delay = 500): string => {
+  const [debounce, setDebounce] = useState(value);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebounce(value), delay);
-
     return () => clearTimeout(timer);
   }, [value, delay]);
 
-  return heldVal;
+  return debounce;
 };
+
+export default useDebounce;
